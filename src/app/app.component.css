@@ -1,0 +1,6 @@
+.bg-image {
+  background-image: url("./../assets/Images/beach.jpg");
+  background-size: cover;
+  background-position: center;
+ /* height: 100% !important; /* Set the height to 100% of the viewport height */
+}

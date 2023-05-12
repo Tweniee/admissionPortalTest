@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-4 mt-5 ">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="Username">Username</label>&nbsp;<span style="font-size:1em; color:red;">*</span>
+          <input type="text" class="form-control" formControlName="username" id="Username">
+          <div class="invalid-form" *appIf="username.invalid && username.dirty">
+            Please enter username and with minimum 3 character.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>&nbsp;<span style="font-size:1em; color:red;">*</span>
+          <input type="password" formControlName="password" class="form-control" id="password">
+          <div class="invalid-form" *appIf="password.invalid && password.dirty">
+            Please enter password and with minimum 3 character.
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2" [disabled]="password.invalid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1>Students</h1>
+                    <button class="btn btn-primary" (click)="addStudentMethod()">Add Student</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Building</th>
+                <th>Area</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Gender</th>
+                <th>Skills</th>
+                <th>Education</th>
+                <th *appIf="checkRole()">Action</th>
+            </tr>
+        </thead>
+        <tbody *appIf="allStudent.length>0">
+            <tr *ngFor="let item of allStudent;let i = index">
+                <td>Mr/Ms {{item.fullName.firstName}} {{item.fullName.middleName}} {{item.fullName.lastName}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.address.area}}</td>
+                <td>{{item.address.building}}</td>
+                <td>{{item.address.city}}</td>
+                <td>{{item.address.state}}</td>
+                <td>{{item.gender}}</td>
+                <td>{{showSkills(item.skills)}}</td>
+                <td>
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Education Level</th>
+                                <th>Marks</th>
+                                <th>Grade</th>
+                                <th>Year of Passing</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10th</td>
+                                <td appGoodMarks>{{item.educationDetails['10th']['marks']}}</td>
+                                <td>{{item.educationDetails['10th']['grade']}}</td>
+                                <td>{{item.educationDetails['10th']['yearOfPassing']}}</td>
+                            </tr>
+                            <tr>
+                                <td>12th</td>
+                                <td appGoodMarks>{{item.educationDetails['12th']['marks']}}</td>
+                                <td>{{item.educationDetails['12th']['grade']}}</td>
+                                <td>{{item.educationDetails['12th']['yearOfPassing']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Degree</td>
+                                <td>{{item.educationDetails['degree']['marks']}}</td>
+                                <td>{{item.educationDetails['degree']['grade']}}</td>
+                                <td>{{item.educationDetails['degree']['yearOfPassing']}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </td>
+                <td *appIf="checkRole()">
+                    <div class="btn-group" role="group" aria-label="Actions">
+                        <button type="button" class="btn btn-sm btn-primary" (click)="editRecord(i)"><i class="bi bi-pencil-square"></i> Edit</button>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="deleteRecord(i)"><i class="bi bi-pencil-square"></i> Delete</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

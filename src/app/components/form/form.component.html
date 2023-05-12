@@ -1,0 +1,180 @@
+<div class="bd-example">
+    <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+        <div class="form-row" formGroupName="fullName">
+            <div class="form-group col-md-4">
+                <label for="Firstname">First Name</label>
+                <input type="text" class="form-control" formControlName="firstName" id="Firstname" placeholder="John">
+                <div class="error" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                    First Name is required.</div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="Middlename">Middle Name</label>
+                <input type="text" class="form-control" formControlName="middleName" id="Middlename" placeholder="Snow">
+                <div class="error" *ngIf="middleName.invalid && (middleName.dirty || middleName.touched)">
+                    Middle Name is required.</div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="Lastname">Last Name</label>
+                <input type="text" class="form-control" formControlName="lastName" id="Lastname" placeholder="Deo">
+                <div class="error" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                    Last Name is required.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" formControlName="email" id="email" placeholder="John@deo.com">
+            <div class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+                Please enter a valid email address.</div>
+        </div>
+        <div class="form-row" formGroupName="address">
+            <div class="form-group col-md-6">
+                <label for="Building">Building</label>
+                <input type="text" class="form-control" formControlName="building" id="Building" placeholder="Naval">
+                <div class="error" *ngIf="building.invalid && (building.dirty || building.touched)">
+                    Building is required.</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Area">Area</label>
+                <input type="text" class="form-control" formControlName="area" id="Area" placeholder="Malviya Nagar">
+                <div class="error" *ngIf="area.invalid && (area.dirty || area.touched)">
+                    area is required.</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="state">State</label>
+                <select id="state" class="form-control" formControlName="state" (change)="onStateChange($event.target)">
+                    <option value="" selected>Choose...</option>
+                    <option *ngFor="let state of states" [value]="state.StateID">{{state.StateName}}</option>
+                </select>
+                <div class="error" *ngIf="state.invalid && (state.dirty || state.touched)">
+                    state is required.</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="City">City</label>
+                <select id="City" class="form-control" formControlName="city">
+                    <option value="" selected>Choose...</option>
+                    <option *ngFor="let city of cities" [value]="city.Name">{{city.Name}}</option>
+                </select>
+                <div class="error" *ngIf="city.invalid && (city.dirty || city.touched)">
+                    city is required.</div>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label>Gender</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="gender" name="gender" id="male"
+                    value="male" checked>
+                <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="gender" name="gender" id="female"
+                    value="female">
+                <label class="form-check-label" for="female">Female</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="gender" name="gender" id="Other"
+                    value="Other">
+                <label class="form-check-label" for="Other">Other</label>
+            </div>
+            <div class="error" *ngIf="gender.invalid && (gender.dirty || gender.touched)">
+                Please select a gender.</div>
+        </div>
+        <div class="form-group">
+            <label for="skills">Skills</label>
+            <div formArrayName="skills">
+                <div *ngFor="let skill of skillsFormArray.controls; let i=index">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" formControlName="{{i}}" placeholder="Enter text here"
+                            id="skills">
+                        <button class="btn btn-danger" type="button" id="button-addon2"
+                            (click)="removeSkillField(i)">Remove</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="button" id="button-addon2" (click)="addSkillField()">Add
+                        Skill</button>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" formGroupName="educationDetails">
+            <div class="form-group col-md-4" formGroupName="10th">
+                <!-- <label for="Firstname">First Name</label> -->
+                <div class="form-row-education">
+                    <div class="form-group col-md-9">
+                        <label for="TenthMarks">Marks</label>
+                        <input type="text" class="form-control" formControlName="marks" id="TenthMarks"
+                            placeholder="89">
+                        <div class="error" *ngIf="TenthMarks.invalid && (TenthMarks.dirty || TenthMarks.touched)">
+                            Marks is required.</div>
+                    </div>
+                    <div class="form-group col-md-9">
+                        <label for="TenthGrade">Grade</label>
+                        <input type="text" class="form-control" formControlName="grade" id="TenthGrade"
+                            placeholder="A+">
+                        <div class="error" *ngIf="TenthGrade.invalid && (TenthGrade.dirty || TenthGrade.touched)">
+                            Grade is required.</div>
+                    </div>
+                    <div class="form-group col-md-9">
+                        <label for="TenthYear">Year of Passing</label>
+                        <input type="text" class="form-control" formControlName="yearOfPassing" id="TenthYear"
+                            placeholder="2017">
+                        <div class="error" *ngIf="TenthYear.invalid && (TenthYear.dirty || TenthYear.touched)">
+                            Year of passing is required.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4" formGroupName="12th">
+                <!-- <label for="Marks">Marks</label> -->
+                <div class="form-row-education">
+                    <div class="form-group col-md-9">
+                        <label for="TwelfthMarks">Marks</label>
+                        <input type="text" class="form-control" formControlName="marks" id="TwelfthMarks"
+                            placeholder="79">
+                        <div class="error" *ngIf="TwelfthMarks.invalid && (TwelfthMarks.dirty || TwelfthMarks.touched)">
+                            Marks is required.</div>
+                    </div>
+                    <div class="form-group col-md-9">
+                        <label for="TwelfthGrade">Grade</label>
+                        <input type="text" class="form-control" formControlName="grade" id="TwelfthGrade"
+                            placeholder="A+">
+                        <div class="error" *ngIf="TwelfthGrade.invalid && (TwelfthGrade.dirty || TwelfthGrade.touched)">
+                            Grade is required.</div>
+                    </div>
+                    <div class="form-group col-md-9">
+                        <label for="TwelfthYear">Year of Passing</label>
+                        <input type="text" class="form-control" formControlName="yearOfPassing" id="TwelfthYear"
+                            placeholder="2015">
+                        <div class="error" *ngIf="TwelfthYear.invalid && (TwelfthYear.dirty || TwelfthYear.touched)">
+                            Year of passing is required.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4" formGroupName="degree">
+                <!-- <label for="Marks">Marks</label> -->
+                <div class="form-row-education">
+                    <div class="form-group col-md-9">
+                        <label for="DegreeMarks">Marks</label>
+                        <input type="text" class="form-control" formControlName="marks" id="DegreeMarks"
+                            placeholder="65">
+                        <div class="error" *ngIf="DegreeMarks.invalid && (DegreeMarks.dirty || DegreeMarks.touched)">
+                            Marks is required.</div>
+                    </div>
+                    <div class="form-group col-md-9">
+                        <label for="DegreeGrade">Grade</label>
+                        <input type="text" class="form-control" formControlName="grade" id="DegreeGrade"
+                            placeholder="B+">
+                        <div class="error" *ngIf="DegreeGrade.invalid && (DegreeGrade.dirty || DegreeGrade.touched)">
+                            Grade is required.</div>
+                    </div>
+                    <div class="form-group col-md-9">
+                        <label for="DegreeYear">Year of Passing</label>
+                        <input type="text" class="form-control" formControlName="yearOfPassing" id="DegreeYear"
+                            placeholder="2016">
+                        <div class="error" *ngIf="DegreeYear.invalid && (DegreeYear.dirty || DegreeYear.touched)">
+                            Year of passing is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
